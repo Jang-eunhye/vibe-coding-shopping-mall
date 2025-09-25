@@ -35,7 +35,8 @@ app.get("/", (req, res) => {
   });
 });
 
-// API 라우트는 필요할 때 추가
+// API 라우트
+app.use("/api/users", require("./routes/users"));
 
 // 404 에러 핸들러
 app.use("*", (req, res) => {
