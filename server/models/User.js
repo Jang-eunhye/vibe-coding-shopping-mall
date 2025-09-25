@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
@@ -34,5 +35,24 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+// 비밀번호 암호화 (저장 전에 실행)
+userSchema.pre("save", async function (next) {
+  // 비밀번호가 수정되지 않았으면 암호화하지 않음
+  if (!this.isModified("password")) return next();
+
+  try {
+    // 비밀번호를 12자리 salt로 암호화
+    this.password = await bcrypt.hash(this.password, 12);
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+// 비밀번호 확인 메서드
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
 
 module.exports = mongoose.model("User", userSchema);
