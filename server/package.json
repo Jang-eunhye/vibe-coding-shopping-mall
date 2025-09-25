@@ -6,9 +6,15 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "dev:watch": "nodemon --watch . --ext js,json server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["express", "mongodb", "api", "shopping-mall"],
+  "keywords": [
+    "express",
+    "mongodb",
+    "api",
+    "shopping-mall"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
