@@ -43,7 +43,7 @@ const getUserById = async (req, res) => {
 // 사용자 생성
 const createUser = async (req, res) => {
   try {
-    const { email, name, password, user_type, address } = req.body;
+    const { email, name, password } = req.body;
 
     // 이메일 중복 확인
     const existingUser = await User.findOne({ email });
@@ -58,8 +58,7 @@ const createUser = async (req, res) => {
       email,
       name,
       password,
-      user_type,
-      address,
+      user_type: "customer", // 기본값으로 customer 설정
     });
 
     await user.save();
