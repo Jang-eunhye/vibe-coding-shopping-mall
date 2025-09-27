@@ -85,8 +85,11 @@ function Login() {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.data));
 
+        // 커스텀 이벤트 발생으로 Header 컴포넌트에 알림
+        window.dispatchEvent(new CustomEvent("userLogin"));
+
         alert("로그인 성공!");
-        navigate("/main"); // 메인 페이지로 이동
+        navigate("/"); // 메인 페이지로 이동
       } else {
         setError(data.message || "로그인에 실패했습니다.");
       }
