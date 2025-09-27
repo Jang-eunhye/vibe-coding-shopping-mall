@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 
@@ -10,6 +10,52 @@ function Login() {
   });
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+
+  // 컴포넌트 마운트 시 로그인 상태 확인
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setIsCheckingAuth(false);
+          return;
+        }
+
+        // 토큰이 있으면 유효성 검증
+        const response = await fetch(
+          "http://localhost:5000/api/users/profile",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        const data = await response.json();
+
+        if (data.success) {
+          // 이미 로그인된 상태이므로 메인 페이지로 리다이렉트
+          navigate("/");
+        } else {
+          // 토큰이 유효하지 않으면 localStorage 정리
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          setIsCheckingAuth(false);
+        }
+      } catch (error) {
+        console.error("인증 상태 확인 오류:", error);
+        // 네트워크 오류 시에도 localStorage 정리
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        setIsCheckingAuth(false);
+      }
+    };
+
+    checkAuthStatus();
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({
@@ -55,6 +101,37 @@ function Login() {
   // 모든 필드가 입력되었는지 확인
   const isFormValid =
     formData.email.trim() !== "" && formData.password.trim() !== "";
+
+  // 인증 상태 확인 중이면 로딩 표시
+  if (isCheckingAuth) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#f8f9fa",
+          paddingTop: "80px",
+        }}
+      >
+        <div
+          style={{
+            textAlign: "center",
+            padding: "40px",
+            backgroundColor: "white",
+            borderRadius: "8px",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+          }}
+        >
+          <p style={{ fontSize: "16px", color: "#666" }}>
+            로그인 상태를 확인하는 중...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
