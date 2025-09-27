@@ -7,19 +7,24 @@ const {
   updateUser,
   deleteUser,
   loginUser,
+  getCurrentUser,
 } = require("../controllers/userController");
+const { authenticateToken } = require("../middleware/auth");
 
 // 모든 사용자 조회 (GET /api/users)
 router.get("/", getAllUsers);
 
-// 특정 사용자 조회 (GET /api/users/:id)
-router.get("/:id", getUserById);
+// 현재 사용자 정보 조회 (GET /api/users/profile) - 토큰 필요
+router.get("/profile", authenticateToken, getCurrentUser);
 
 // 사용자 생성 (POST /api/users)
 router.post("/", createUser);
 
 // 사용자 로그인 (POST /api/users/login)
 router.post("/login", loginUser);
+
+// 특정 사용자 조회 (GET /api/users/:id) - 마지막에 위치
+router.get("/:id", getUserById);
 
 // 사용자 수정 (PUT /api/users/:id)
 router.put("/:id", updateUser);

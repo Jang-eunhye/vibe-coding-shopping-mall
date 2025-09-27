@@ -204,6 +204,24 @@ const loginUser = async (req, res) => {
   }
 };
 
+// 토큰으로 현재 사용자 정보 조회
+const getCurrentUser = async (req, res) => {
+  try {
+    // 미들웨어에서 이미 사용자 정보를 가져왔으므로 그대로 반환
+    res.json({
+      success: true,
+      message: "사용자 정보 조회 성공",
+      data: req.user,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "사용자 정보 조회 실패",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   getAllUsers,
   getUserById,
@@ -211,4 +229,5 @@ module.exports = {
   updateUser,
   deleteUser,
   loginUser,
+  getCurrentUser,
 };

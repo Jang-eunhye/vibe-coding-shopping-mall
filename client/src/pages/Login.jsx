@@ -40,7 +40,7 @@ function Login() {
         localStorage.setItem("user", JSON.stringify(data.data));
 
         alert("로그인 성공!");
-        navigate("/"); // 메인 페이지로 이동
+        navigate("/main"); // 메인 페이지로 이동
       } else {
         setError(data.message || "로그인에 실패했습니다.");
       }
