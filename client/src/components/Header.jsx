@@ -1,14 +1,17 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import "./Header.css";
 
 function Header() {
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   // 로그인/회원가입 페이지인지 확인
   const isAuthPage =
     location.pathname === "/login" || location.pathname === "/signup";
+  const isHomePage = location.pathname === "/";
 
   // 사용자 정보 조회 함수
   const fetchUserProfile = async () => {
@@ -82,6 +85,19 @@ function Header() {
     };
   }, []);
 
+  // 스크롤 이벤트 감지
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const windowHeight = window.innerHeight;
+      // 히어로 이미지가 거의 끝나는 지점(화면 높이의 80%)에서 색상 변경
+      setIsScrolled(scrollTop > windowHeight * 0.8);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   // 로그아웃 함수
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -91,98 +107,90 @@ function Header() {
     window.dispatchEvent(new CustomEvent("userLogout"));
   };
 
+  // 텍스트 색상 동적 설정
+  const textColor = isHomePage && !isScrolled ? "white" : "#333";
+
   return (
     <header
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        backgroundColor: "white",
-        borderBottom: "1px solid #eee",
-        padding: "15px 20px",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-      }}
+      className={`header ${
+        isHomePage && !isScrolled ? "header--transparent" : "header--solid"
+      }`}
     >
-      <Link
-        to="/"
-        style={{
-          fontSize: "24px",
-          fontWeight: "bold",
-          color: "#333",
-          textDecoration: "none",
-        }}
-      >
-        eunhyeshop
-      </Link>
+      {/* 좌측: 햄버거 버튼 + 로고 */}
+      <div className="header-left">
+        {/* 햄버거 버튼 */}
+        <button className="hamburger-button">
+          <div
+            className="hamburger-line"
+            style={{ backgroundColor: textColor }}
+          />
+          <div
+            className="hamburger-line"
+            style={{ backgroundColor: textColor }}
+          />
+          <div
+            className="hamburger-line"
+            style={{ backgroundColor: textColor }}
+          />
+        </button>
+
+        {/* 로고 */}
+        <Link to="/" className="logo">
+          eunhyeshop
+        </Link>
+      </div>
 
       {/* 우측 상단 사용자 정보 */}
-      <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
+      <div className="header-right">
         {isLoading ? (
-          <span style={{ color: "#666", fontSize: "14px" }}>로딩 중...</span>
+          <span className="loading-text" style={{ color: textColor }}>
+            로딩 중...
+          </span>
         ) : user ? (
-          <div style={{ display: "flex", alignItems: "center", gap: "15px" }}>
-            <span
-              style={{ color: "#333", fontSize: "16px", fontWeight: "bold" }}
-            >
-              {user.name}님 반갑습니다
+          <div className="user-info">
+            <span className="user-name" style={{ color: textColor }}>
+              {user.name}님
             </span>
+            {user.user_type === "admin" && (
+              <Link
+                to="/admin"
+                className={`header-button admin-button ${
+                  isHomePage && !isScrolled ? "admin-button--transparent" : ""
+                }`}
+              >
+                어드민
+              </Link>
+            )}
             <button
               onClick={handleLogout}
-              style={{
-                padding: "8px 16px",
-                backgroundColor: "transparent",
-                color: "#666",
-                border: "1px solid #ddd",
-                borderRadius: "4px",
-                fontSize: "14px",
-                fontWeight: "500",
-                cursor: "pointer",
-                transition: "all 0.2s ease",
-              }}
-              onMouseOver={(e) => {
-                e.target.style.backgroundColor = "#f5f5f5";
-                e.target.style.borderColor = "#ccc";
-              }}
-              onMouseOut={(e) => {
-                e.target.style.backgroundColor = "transparent";
-                e.target.style.borderColor = "#ddd";
-              }}
+              className={`header-button logout-button ${
+                isHomePage && !isScrolled
+                  ? "logout-button--transparent"
+                  : "logout-button--solid"
+              }`}
+              style={{ color: textColor }}
             >
               로그아웃
             </button>
           </div>
         ) : !isAuthPage ? (
-          <div style={{ display: "flex", gap: "10px" }}>
+          <div className="user-info">
             <Link
               to="/login"
-              style={{
-                padding: "8px 16px",
-                backgroundColor: "#000",
-                color: "white",
-                textDecoration: "none",
-                borderRadius: "4px",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
+              className={`header-button login-button ${
+                isHomePage && !isScrolled ? "login-button--transparent" : ""
+              }`}
             >
               로그인
             </Link>
             <Link
               to="/signup"
-              style={{
-                padding: "8px 16px",
-                backgroundColor: "transparent",
-                color: "#000",
-                textDecoration: "none",
-                border: "1px solid #000",
-                borderRadius: "4px",
-                fontSize: "14px",
-                fontWeight: "500",
-              }}
+              className={`header-button signup-button ${
+                isHomePage && !isScrolled
+                  ? "signup-button--transparent"
+                  : "signup-button--solid"
+              }`}
+              style={{ color: textColor }}
             >
               회원가입
             </Link>

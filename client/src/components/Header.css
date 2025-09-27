@@ -1,0 +1,161 @@
+/* Header.css */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1.5% 2%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 1.5s ease;
+}
+
+.header--transparent {
+  background-color: transparent;
+  border-bottom: none;
+}
+
+.header--solid {
+  background-color: white;
+  border-bottom: 1px solid #eee;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2vw, 32px);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.5vw, 24px);
+}
+
+/* 햄버거 버튼 */
+.hamburger-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: clamp(12px, 1.5vw, 20px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(4px, 0.5vw, 8px);
+  transform: scale(1.6);
+  transform-origin: center;
+}
+
+.hamburger-line {
+  width: clamp(20px, 2.5vw, 32px);
+  height: clamp(2px, 0.3vw, 4px);
+  border-radius: clamp(1px, 0.15vw, 2px);
+}
+
+/* 로고 */
+.logo {
+  font-size: clamp(24px, 4vw, 48px);
+  font-weight: bold;
+  color: #800020;
+  text-decoration: none;
+  font-family: serif;
+}
+
+/* 사용자 정보 */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.5vw, 24px);
+}
+
+.user-name {
+  font-size: clamp(14px, 1.8vw, 20px);
+  font-weight: bold;
+}
+
+.loading-text {
+  font-size: clamp(12px, 1.5vw, 16px);
+  opacity: 0.7;
+}
+
+/* 버튼 공통 스타일 */
+.header-button {
+  padding: clamp(8px, 1vw, 16px) clamp(12px, 2vw, 24px);
+  text-decoration: none;
+  border-radius: clamp(4px, 0.5vw, 8px);
+  font-size: clamp(12px, 1.5vw, 16px);
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.admin-button {
+  background-color: #000;
+  color: white;
+  border: none;
+}
+
+.admin-button--transparent {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.logout-button {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.logout-button--transparent {
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.logout-button--solid {
+  color: #666;
+  border: 1px solid #ddd;
+}
+
+.login-button {
+  background-color: #000;
+  color: white;
+  border: none;
+}
+
+.login-button--transparent {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.signup-button {
+  background-color: transparent;
+  border: 1px solid #000;
+}
+
+.signup-button--transparent {
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.signup-button--solid {
+  color: #000;
+  border: 1px solid #000;
+}
+
+/* 호버 효과 */
+.logout-button:hover {
+  background-color: #f5f5f5;
+  border-color: #ccc;
+}
+
+.logout-button--transparent:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.header-button:hover {
+  opacity: 0.8;
+}
