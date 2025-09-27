@@ -6,6 +6,7 @@ const {
   createUser,
   updateUser,
   deleteUser,
+  loginUser,
 } = require("../controllers/userController");
 
 // 모든 사용자 조회 (GET /api/users)
@@ -16,6 +17,9 @@ router.get("/:id", getUserById);
 
 // 사용자 생성 (POST /api/users)
 router.post("/", createUser);
+
+// 사용자 로그인 (POST /api/users/login)
+router.post("/login", loginUser);
 
 // 사용자 수정 (PUT /api/users/:id)
 router.put("/:id", updateUser);

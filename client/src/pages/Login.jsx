@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
 
 function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -17,12 +20,35 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
     try {
-      // 로그인 API 호출 (나중에 구현)
-      console.log("로그인 시도:", formData);
-      alert("로그인 기능은 추후 구현됩니다.");
+      const response = await fetch("http://localhost:5000/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // 토큰을 localStorage에 저장
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.data));
+
+        alert("로그인 성공!");
+        navigate("/"); // 메인 페이지로 이동
+      } else {
+        setError(data.message || "로그인에 실패했습니다.");
+      }
     } catch (error) {
-      alert("로그인 중 오류가 발생했습니다.");
+      console.error("로그인 오류:", error);
+      setError("서버 연결에 실패했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -75,6 +101,23 @@ function Login() {
           </p>
         </div>
 
+        {/* 에러 메시지 */}
+        {error && (
+          <div
+            style={{
+              backgroundColor: "#fee",
+              color: "#c33",
+              padding: "10px",
+              borderRadius: "4px",
+              marginBottom: "20px",
+              fontSize: "14px",
+              textAlign: "center",
+            }}
+          >
+            {error}
+          </div>
+        )}
+
         {/* 로그인 폼 */}
         <form onSubmit={handleSubmit}>
           {/* 이메일 */}
@@ -123,21 +166,24 @@ function Login() {
           {/* 로그인 버튼 */}
           <button
             type="submit"
-            disabled={!isFormValid}
+            disabled={!isFormValid || isLoading}
             style={{
               width: "100%",
               padding: "12px",
-              backgroundColor: isFormValid ? "#000" : "#ccc",
+              backgroundColor: isFormValid && !isLoading ? "#000" : "#ccc",
               color: "white",
               border: "none",
               borderRadius: "4px",
               fontSize: "16px",
               fontWeight: "500",
-              cursor: isFormValid ? "pointer" : "not-allowed",
+              cursor: isFormValid && !isLoading ? "pointer" : "not-allowed",
               marginBottom: "20px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            로그인
+            {isLoading ? "로그인 중..." : "로그인"}
           </button>
         </form>
 

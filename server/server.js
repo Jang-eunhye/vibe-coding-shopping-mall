@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // MongoDB 연결
 mongoose
-  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/shopping-mall")
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("MongoDB에 성공적으로 연결되었습니다.");
   })
@@ -53,7 +53,7 @@ app.use((err, req, res, next) => {
     message: "서버 내부 오류가 발생했습니다.",
     status: "error",
     error:
-      process.env.NODE_ENV === "development"
+      process.env.NODE_ENV
         ? err.message
         : "Internal Server Error",
   });
@@ -62,5 +62,5 @@ app.use((err, req, res, next) => {
 // 서버 시작
 app.listen(PORT, () => {
   console.log(`서버가 포트 ${PORT}에서 실행 중입니다.`);
-  console.log(`환경: ${process.env.NODE_ENV || "development"}`);
+  console.log(`환경: ${process.env.NODE_ENV}`);
 });

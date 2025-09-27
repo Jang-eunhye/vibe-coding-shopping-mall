@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const jwt = require("jsonwebtoken");
 
 // 모든 사용자 조회
 const getAllUsers = async (req, res) => {
@@ -143,10 +144,71 @@ const deleteUser = async (req, res) => {
   }
 };
 
+// 사용자 로그인
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // 이메일과 비밀번호가 제공되었는지 확인
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "이메일과 비밀번호를 입력해주세요",
+      });
+    }
+
+    // 이메일로 사용자 찾기
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({
+        success: false,
+        message: "이메일 또는 비밀번호가 올바르지 않습니다",
+      });
+    }
+
+    // 비밀번호 확인
+    const isPasswordValid = await user.comparePassword(password);
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        success: false,
+        message: "이메일 또는 비밀번호가 올바르지 않습니다",
+      });
+    }
+
+    // JWT 토큰 생성
+    const token = jwt.sign(
+      {
+        userId: user._id,
+        email: user.email,
+        userType: user.user_type,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "24h" }
+    );
+
+    // 비밀번호 제외하고 사용자 정보 반환
+    const userResponse = await User.findById(user._id).select("-password");
+
+    res.json({
+      success: true,
+      message: "로그인 성공",
+      data: userResponse,
+      token: token,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "로그인 실패",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   getAllUsers,
   getUserById,
   createUser,
   updateUser,
   deleteUser,
+  loginUser,
 };
