@@ -38,6 +38,7 @@ app.get("/", (req, res) => {
 // API 라우트
 app.use("/api/users", require("./routes/users"));
 app.use("/api/products", require("./routes/products"));
+app.use("/api/carts", require("./routes/carts"));
 
 // 404 에러 핸들러
 app.use("*", (req, res) => {
