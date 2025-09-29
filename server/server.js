@@ -37,6 +37,7 @@ app.get("/", (req, res) => {
 
 // API 라우트
 app.use("/api/users", require("./routes/users"));
+app.use("/api/products", require("./routes/products"));
 
 // 404 에러 핸들러
 app.use("*", (req, res) => {
@@ -52,10 +53,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({
     message: "서버 내부 오류가 발생했습니다.",
     status: "error",
-    error:
-      process.env.NODE_ENV
-        ? err.message
-        : "Internal Server Error",
+    error: process.env.NODE_ENV ? err.message : "Internal Server Error",
   });
 });
 
