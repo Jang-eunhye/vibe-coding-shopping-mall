@@ -193,19 +193,21 @@ function Header() {
 
       {/* 우측 상단 사용자 정보 */}
       <div className="header-right">
-        {/* 장바구니 아이콘 */}
-        <button
-          className="cart-button"
-          onClick={handleCartClick}
-          style={{ color: textColor }}
-        >
-          <div className="cart-icon">
-            🛍️
-            {cartItemCount > 0 && (
-              <span className="cart-badge">{cartItemCount}</span>
-            )}
-          </div>
-        </button>
+        {/* 장바구니 아이콘 - 로그인한 유저만 표시 */}
+        {user && (
+          <button
+            className="cart-button"
+            onClick={handleCartClick}
+            style={{ color: textColor }}
+          >
+            <div className="cart-icon">
+              🛍️
+              {cartItemCount > 0 && (
+                <span className="cart-badge">{cartItemCount}</span>
+              )}
+            </div>
+          </button>
+        )}
 
         {isLoading ? (
           <span className="loading-text" style={{ color: textColor }}>
