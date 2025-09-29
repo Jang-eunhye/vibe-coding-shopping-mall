@@ -59,13 +59,14 @@ const addToCart = async (req, res) => {
       });
     }
 
-    // 재고 확인
-    if (product.stock < quantity) {
-      return res.status(400).json({
-        success: false,
-        message: "재고가 부족합니다",
-      });
-    }
+    // 재고 확인 (현재는 무제한으로 처리)
+    // TODO: 재고 관리 기능 구현 시 활성화
+    // if (product.stock < quantity) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "재고가 부족합니다",
+    //   });
+    // }
 
     // 장바구니 조회 또는 생성
     let cart = await Cart.findOne({ user: userId });

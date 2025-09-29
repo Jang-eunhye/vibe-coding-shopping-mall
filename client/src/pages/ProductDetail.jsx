@@ -10,6 +10,7 @@ function ProductDetail() {
   const [selectedColor, setSelectedColor] = useState("sky blue");
   const [selectedSize, setSelectedSize] = useState("S");
   const [quantity, setQuantity] = useState(1);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   // 상품 정보 조회
   const fetchProduct = async () => {
@@ -77,13 +78,103 @@ function ProductDetail() {
   };
 
   // 구매하기
-  const handleBuyNow = () => {
-    alert("구매하기 기능은 준비 중입니다.");
+  const handleBuyNow = async () => {
+    try {
+      setIsAddingToCart(true);
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("로그인이 필요합니다.");
+        navigate("/login");
+        return;
+      }
+
+      // 상품 정보가 없으면 조회
+      if (!product) {
+        alert("상품 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+        return;
+      }
+
+      const response = await fetch("http://localhost:5000/api/carts/items", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: product._id,
+          quantity: quantity,
+          color: selectedColor,
+          size: selectedSize,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert("상품이 장바구니에 추가되었습니다!");
+        // 헤더의 장바구니 개수 업데이트를 위한 이벤트 발생
+        window.dispatchEvent(new CustomEvent("cartUpdated"));
+        // 장바구니 페이지로 이동
+        navigate("/cart");
+      } else {
+        alert(data.message || "장바구니 추가에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("장바구니 추가 오류:", error);
+      alert("장바구니 추가 중 오류가 발생했습니다.");
+    } finally {
+      setIsAddingToCart(false);
+    }
   };
 
   // 장바구니 추가
-  const handleAddToBag = () => {
-    alert("장바구니 추가 기능은 준비 중입니다.");
+  const handleAddToBag = async () => {
+    try {
+      setIsAddingToCart(true);
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        alert("로그인이 필요합니다.");
+        navigate("/login");
+        return;
+      }
+
+      // 상품 정보가 없으면 조회
+      if (!product) {
+        alert("상품 정보를 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+        return;
+      }
+
+      const response = await fetch("http://localhost:5000/api/carts/items", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          productId: product._id,
+          quantity: quantity,
+          color: selectedColor,
+          size: selectedSize,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        alert("상품이 장바구니에 추가되었습니다!");
+        // 헤더의 장바구니 개수 업데이트를 위한 이벤트 발생
+        window.dispatchEvent(new CustomEvent("cartUpdated"));
+      } else {
+        alert(data.message || "장바구니 추가에 실패했습니다.");
+      }
+    } catch (error) {
+      console.error("장바구니 추가 오류:", error);
+      alert("장바구니 추가 중 오류가 발생했습니다.");
+    } finally {
+      setIsAddingToCart(false);
+    }
   };
 
   // 선물하기
@@ -205,11 +296,19 @@ function ProductDetail() {
 
           {/* 액션 버튼들 */}
           <div className="action-buttons">
-            <button className="buy-now-button" onClick={handleBuyNow}>
-              BUY NOW
+            <button
+              className="buy-now-button"
+              onClick={handleBuyNow}
+              disabled={isAddingToCart}
+            >
+              {isAddingToCart ? "추가 중..." : "BUY NOW"}
             </button>
-            <button className="add-to-bag-button" onClick={handleAddToBag}>
-              ADD TO BAG
+            <button
+              className="add-to-bag-button"
+              onClick={handleAddToBag}
+              disabled={isAddingToCart}
+            >
+              {isAddingToCart ? "추가 중..." : "ADD TO BAG"}
             </button>
             <button className="gift-button" onClick={handleGift}>
               선물하기

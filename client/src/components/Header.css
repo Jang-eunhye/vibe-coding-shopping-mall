@@ -34,6 +34,59 @@
   gap: clamp(12px, 1.5vw, 24px);
 }
 
+/* 장바구니 버튼 */
+.cart-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: clamp(8px, 1vw, 12px);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.cart-button:hover {
+  transform: scale(1.1);
+}
+
+.cart-icon {
+  position: relative;
+  font-size: clamp(20px, 2.5vw, 28px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff4444;
+  color: white;
+  border-radius: 50%;
+  width: clamp(18px, 2.2vw, 24px);
+  height: clamp(18px, 2.2vw, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(10px, 1.2vw, 14px);
+  font-weight: bold;
+  min-width: clamp(18px, 2.2vw, 24px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 /* 햄버거 버튼 */
 .hamburger-button {
   background: none;

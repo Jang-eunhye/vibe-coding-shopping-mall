@@ -1,12 +1,14 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import "./Header.css";
 
 function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [cartItemCount, setCartItemCount] = useState(0);
 
   // 로그인/회원가입 페이지인지 확인
   const isAuthPage =
@@ -19,6 +21,7 @@ function Header() {
       const token = localStorage.getItem("token");
       if (!token) {
         setUser(null);
+        setCartItemCount(0);
         setIsLoading(false);
         return;
       }
@@ -35,11 +38,14 @@ function Header() {
 
       if (data.success) {
         setUser(data.data);
+        // 사용자 정보 조회 성공 시 장바구니 아이템 개수도 조회
+        fetchCartItemCount();
       } else {
         // 토큰이 유효하지 않으면 localStorage에서 제거
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         setUser(null);
+        setCartItemCount(0);
       }
     } catch (error) {
       console.error("사용자 정보 조회 오류:", error);
@@ -47,8 +53,39 @@ function Header() {
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       setUser(null);
+      setCartItemCount(0);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  // 장바구니 아이템 개수 조회 함수
+  const fetchCartItemCount = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setCartItemCount(0);
+        return;
+      }
+
+      const response = await fetch("http://localhost:5000/api/carts", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setCartItemCount(data.data.totalItems || 0);
+      } else {
+        setCartItemCount(0);
+      }
+    } catch (error) {
+      console.error("장바구니 조회 오류:", error);
+      setCartItemCount(0);
     }
   };
 
@@ -77,11 +114,13 @@ function Header() {
     // 커스텀 이벤트 리스너 등록 (같은 탭에서의 변화 감지)
     window.addEventListener("userLogin", handleStorageChange);
     window.addEventListener("userLogout", handleStorageChange);
+    window.addEventListener("cartUpdated", fetchCartItemCount);
 
     return () => {
       window.removeEventListener("storage", handleStorageChange);
       window.removeEventListener("userLogin", handleStorageChange);
       window.removeEventListener("userLogout", handleStorageChange);
+      window.removeEventListener("cartUpdated", fetchCartItemCount);
     };
   }, []);
 
@@ -103,8 +142,20 @@ function Header() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
+    setCartItemCount(0);
     // 커스텀 이벤트 발생
     window.dispatchEvent(new CustomEvent("userLogout"));
+    // 로그아웃 후 자동 새로고침
+    window.location.reload();
+  };
+
+  // 장바구니 클릭 핸들러
+  const handleCartClick = () => {
+    if (user) {
+      navigate("/cart");
+    } else {
+      navigate("/login");
+    }
   };
 
   // 텍스트 색상 동적 설정
@@ -142,6 +193,20 @@ function Header() {
 
       {/* 우측 상단 사용자 정보 */}
       <div className="header-right">
+        {/* 장바구니 아이콘 */}
+        <button
+          className="cart-button"
+          onClick={handleCartClick}
+          style={{ color: textColor }}
+        >
+          <div className="cart-icon">
+            🛍️
+            {cartItemCount > 0 && (
+              <span className="cart-badge">{cartItemCount}</span>
+            )}
+          </div>
+        </button>
+
         {isLoading ? (
           <span className="loading-text" style={{ color: textColor }}>
             로딩 중...

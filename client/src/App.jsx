@@ -8,6 +8,7 @@ import ProductRegistration from "./pages/ProductRegistration";
 import ProductManagement from "./pages/ProductManagement";
 import CategoryPage from "./pages/CategoryPage";
 import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/admin/products/new" element={<ProductRegistration />} />
         <Route path="/category/:category" element={<CategoryPage />} />
         <Route path="/product/:sku" element={<ProductDetail />} />
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </Router>
   );
