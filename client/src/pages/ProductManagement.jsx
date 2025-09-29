@@ -25,7 +25,7 @@ function ProductManagement() {
       setLoading(true);
       const params = new URLSearchParams({
         page: currentPage,
-        limit: 10,
+        limit: 2,
         ...(searchTerm && { search: searchTerm }),
         ...(filterCategory && { category: filterCategory }),
       });

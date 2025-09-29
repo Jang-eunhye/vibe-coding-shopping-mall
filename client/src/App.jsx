@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProductRegistration from "./pages/ProductRegistration";
 import ProductManagement from "./pages/ProductManagement";
+import CategoryPage from "./pages/CategoryPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/products" element={<ProductManagement />} />
         <Route path="/admin/products/new" element={<ProductRegistration />} />
+        <Route path="/category/:category" element={<CategoryPage />} />
       </Routes>
     </Router>
   );
