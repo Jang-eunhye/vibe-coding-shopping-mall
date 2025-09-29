@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./CategoryPage.css";
 
 function CategoryPage() {
   const { category } = useParams();
+  const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -66,6 +67,11 @@ function CategoryPage() {
     return Math.floor(price * 0.9);
   };
 
+  // 상품 클릭 핸들러
+  const handleProductClick = (product) => {
+    navigate(`/product/${product.sku}`);
+  };
+
   return (
     <div className="category-page">
       {/* 헤더 */}
@@ -90,7 +96,11 @@ function CategoryPage() {
         ) : (
           <div className="products-grid">
             {products.map((product) => (
-              <div key={product._id} className="product-card">
+              <div
+                key={product._id}
+                className="product-card"
+                onClick={() => handleProductClick(product)}
+              >
                 <div className="product-image-container">
                   <img
                     src={product.image}
