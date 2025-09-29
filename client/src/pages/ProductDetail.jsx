@@ -7,8 +7,6 @@ function ProductDetail() {
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedColor, setSelectedColor] = useState("sky blue");
-  const [selectedSize, setSelectedSize] = useState("S");
   const [quantity, setQuantity] = useState(1);
   const [isAddingToCart, setIsAddingToCart] = useState(false);
 
@@ -59,16 +57,6 @@ function ProductDetail() {
     );
   };
 
-  // 색상 옵션
-  const colorOptions = [
-    { name: "sky blue", value: "sky blue", color: "#87CEEB" },
-    { name: "cream", value: "cream", color: "#F5F5DC" },
-    { name: "black", value: "black", color: "#000000" },
-  ];
-
-  // 사이즈 옵션
-  const sizeOptions = ["S", "M", "L", "XL"];
-
   // 수량 변경
   const handleQuantityChange = (change) => {
     const newQuantity = quantity + change;
@@ -104,8 +92,6 @@ function ProductDetail() {
         body: JSON.stringify({
           productId: product._id,
           quantity: quantity,
-          color: selectedColor,
-          size: selectedSize,
         }),
       });
 
@@ -155,8 +141,6 @@ function ProductDetail() {
         body: JSON.stringify({
           productId: product._id,
           quantity: quantity,
-          color: selectedColor,
-          size: selectedSize,
         }),
       });
 
@@ -177,10 +161,6 @@ function ProductDetail() {
     }
   };
 
-  // 선물하기
-  const handleGift = () => {
-    alert("선물하기 기능은 준비 중입니다.");
-  };
 
   if (loading) {
     return (
@@ -246,41 +226,25 @@ function ProductDetail() {
             </div>
           </div>
 
-          {/* 색상 선택 */}
+          {/* 수량 선택 */}
           <div className="option-section">
-            <label className="option-label">
-              COLOR {selectedColor.toUpperCase()}
-            </label>
-            <div className="color-options">
-              {colorOptions.map((color) => (
-                <button
-                  key={color.value}
-                  className={`color-option ${
-                    selectedColor === color.value ? "selected" : ""
-                  }`}
-                  onClick={() => setSelectedColor(color.value)}
-                  style={{ backgroundColor: color.color }}
-                  title={color.name}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* 사이즈 선택 */}
-          <div className="option-section">
-            <label className="option-label">SIZE</label>
-            <div className="size-options">
-              {sizeOptions.map((size) => (
-                <button
-                  key={size}
-                  className={`size-option ${
-                    selectedSize === size ? "selected" : ""
-                  }`}
-                  onClick={() => setSelectedSize(size)}
-                >
-                  {size}
-                </button>
-              ))}
+            <label className="option-label">수량</label>
+            <div className="quantity-controls">
+              <button
+                className="quantity-button"
+                onClick={() => handleQuantityChange(-1)}
+                disabled={quantity <= 1}
+              >
+                -
+              </button>
+              <span className="quantity-value">{quantity}</span>
+              <button
+                className="quantity-button"
+                onClick={() => handleQuantityChange(1)}
+                disabled={quantity >= 10}
+              >
+                +
+              </button>
             </div>
           </div>
 
@@ -309,24 +273,6 @@ function ProductDetail() {
               disabled={isAddingToCart}
             >
               {isAddingToCart ? "추가 중..." : "ADD TO BAG"}
-            </button>
-            <button className="gift-button" onClick={handleGift}>
-              선물하기
-            </button>
-          </div>
-
-          {/* 간편 결제 */}
-          <div className="quick-payment">
-            <button className="npay-button">
-              <span className="npay-logo">N</span>
-              <span className="npay-text">N pay 구매하기</span>
-            </button>
-          </div>
-
-          {/* 오프라인 재고 조회 */}
-          <div className="offline-stock">
-            <button className="stock-check-button">
-              오프라인 매장 재고 조회
             </button>
           </div>
         </div>

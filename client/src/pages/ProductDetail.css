@@ -155,6 +155,47 @@
   margin-bottom: 12px;
 }
 
+/* 수량 선택 */
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.quantity-button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #dee2e6;
+  background-color: white;
+  color: #495057;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-button:hover:not(:disabled) {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+}
+
+.quantity-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.quantity-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #212529;
+  min-width: 30px;
+  text-align: center;
+}
+
 /* 색상 옵션 */
 .color-options {
   display: flex;
@@ -284,8 +325,7 @@
   opacity: 0.7;
 }
 
-.add-to-bag-button,
-.gift-button {
+.add-to-bag-button {
   padding: 16px 24px;
   background-color: white;
   color: #212529;
@@ -297,8 +337,7 @@
   transition: all 0.2s ease;
 }
 
-.add-to-bag-button:hover:not(:disabled),
-.gift-button:hover {
+.add-to-bag-button:hover:not(:disabled) {
   background-color: #f8f9fa;
 }
 
@@ -310,71 +349,6 @@
   opacity: 0.7;
 }
 
-/* 간편 결제 */
-.quick-payment {
-  margin: 16px 0;
-}
-
-.npay-button {
-  width: 100%;
-  padding: 16px 24px;
-  background-color: #00c851;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: background-color 0.2s ease;
-}
-
-.npay-button:hover {
-  background-color: #00a041;
-}
-
-.npay-logo {
-  width: 24px;
-  height: 24px;
-  background-color: white;
-  color: #00c851;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 14px;
-}
-
-.npay-text {
-  font-size: 16px;
-}
-
-/* 오프라인 재고 조회 */
-.offline-stock {
-  margin: 16px 0;
-}
-
-.stock-check-button {
-  width: 100%;
-  padding: 16px 24px;
-  background-color: white;
-  color: #212529;
-  border: 1px solid #dee2e6;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.stock-check-button:hover {
-  background-color: #f8f9fa;
-  border-color: #adb5bd;
-}
 
 /* 반응형 디자인 */
 @media (max-width: 768px) {
@@ -412,14 +386,7 @@
   }
 
   .buy-now-button,
-  .add-to-bag-button,
-  .gift-button {
-    padding: 14px 20px;
-    font-size: 14px;
-  }
-
-  .npay-button,
-  .stock-check-button {
+  .add-to-bag-button {
     padding: 14px 20px;
     font-size: 14px;
   }
@@ -470,5 +437,19 @@
     padding: 10px 16px;
     font-size: 13px;
     min-width: 45px;
+  }
+
+  .quantity-controls {
+    gap: 12px;
+  }
+
+  .quantity-button {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  .quantity-value {
+    font-size: 1.1rem;
   }
 }
