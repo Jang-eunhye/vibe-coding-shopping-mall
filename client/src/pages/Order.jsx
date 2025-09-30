@@ -178,9 +178,11 @@ function Order() {
     if (success) {
       // 결제 성공 시 주문 생성
       try {
-        await createOrder(imp_uid, merchant_uid);
-        alert("결제가 완료되었습니다!");
-        navigate("/");
+        const orderResult = await createOrder(imp_uid, merchant_uid);
+        // 주문 정보를 localStorage에 저장하고 주문완료 페이지로 이동
+        localStorage.setItem("lastOrder", JSON.stringify(orderResult.data));
+        localStorage.setItem("orderStatus", "success");
+        navigate("/order-complete");
       } catch (error) {
         console.error("주문 생성 오류:", error);
         alert(
@@ -188,8 +190,9 @@ function Order() {
         );
       }
     } else {
-      // 결제 실패
-      alert(`결제 실패: ${error_msg}`);
+      // 결제 실패 시 주문완료 페이지로 이동 (실패 상태)
+      localStorage.setItem("orderStatus", "failure");
+      navigate("/order-complete");
     }
   };
 
@@ -426,7 +429,7 @@ function Order() {
                     handleInputChange("paymentMethod", e.target.value)
                   }
                 />
-                토스페이 <span className="discount-badge">0.3% 즉시 할인</span>
+                토스페이
               </label>
               <label className="payment-option">
                 <input

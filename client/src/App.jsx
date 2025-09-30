@@ -10,6 +10,7 @@ import CategoryPage from "./pages/CategoryPage";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Order from "./pages/Order";
+import OrderComplete from "./pages/OrderComplete";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/product/:sku" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
+        <Route path="/order-complete" element={<OrderComplete />} />
       </Routes>
     </Router>
   );
