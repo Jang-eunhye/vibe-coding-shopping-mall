@@ -28,16 +28,12 @@ const generateOrderNumber = async function (next) {
 
 // 총 금액 계산 미들웨어
 const calculateOrderAmount = function (next) {
-  if (
-    this.isModified("items") ||
-    this.isModified("subtotal") ||
-    this.isModified("discountAmount")
-  ) {
+  if (this.isModified("items") || this.isModified("subtotal")) {
     this.subtotal = this.items.reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
-    this.totalAmount = this.subtotal - this.discountAmount;
+    this.totalAmount = this.subtotal;
   }
   next();
 };

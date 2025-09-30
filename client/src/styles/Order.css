@@ -257,53 +257,6 @@
   color: #333;
 }
 
-.discount-input {
-  display: flex;
-  gap: 10px;
-}
-
-.discount-input input {
-  flex: 1;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.discount-input button {
-  padding: 8px 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.discount-input button:hover {
-  background-color: #0056b3;
-}
-
-.discount-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.discount-actions button {
-  padding: 6px 12px;
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 12px;
-}
-
-.coupon-count {
-  font-size: 12px;
-  color: #666;
-}
-
 /* 결제 수단 */
 .payment-methods {
   display: flex;
@@ -335,15 +288,6 @@
 .payment-option:has(input:checked) {
   border-color: #007bff;
   background-color: #e7f3ff;
-}
-
-.discount-badge {
-  background-color: #ff6b6b;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 12px;
-  margin-left: 10px;
 }
 
 .payment-note {
@@ -511,12 +455,6 @@
 
   .address-inputs {
     flex-direction: column;
-  }
-
-  .discount-actions {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
   }
 
   .radio-group {

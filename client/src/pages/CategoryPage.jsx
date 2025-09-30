@@ -62,11 +62,6 @@ function CategoryPage() {
     }).format(price);
   };
 
-  // 할인 가격 계산 (예시: 10% 할인)
-  const calculateDiscountedPrice = (price) => {
-    return Math.floor(price * 0.9);
-  };
-
   // 상품 클릭 핸들러
   const handleProductClick = (product) => {
     navigate(`/product/${product.sku}`);
@@ -111,11 +106,8 @@ function CategoryPage() {
                 <div className="product-info">
                   <h3 className="product-name">{product.name}</h3>
                   <div className="product-prices">
-                    <span className="original-price">
+                    <span className="product-price">
                       {formatPrice(product.price)}
-                    </span>
-                    <span className="discounted-price">
-                      {formatPrice(calculateDiscountedPrice(product.price))}
                     </span>
                   </div>
                 </div>

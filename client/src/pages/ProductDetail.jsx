@@ -45,18 +45,6 @@ function ProductDetail() {
     }).format(price);
   };
 
-  // 할인 가격 계산 (10% 할인)
-  const calculateDiscountedPrice = (price) => {
-    return Math.floor(price * 0.9);
-  };
-
-  // 할인율 계산
-  const calculateDiscountRate = (originalPrice, discountedPrice) => {
-    return Math.round(
-      ((originalPrice - discountedPrice) / originalPrice) * 100
-    );
-  };
-
   // 수량 변경
   const handleQuantityChange = (change) => {
     const newQuantity = quantity + change;
@@ -177,9 +165,6 @@ function ProductDetail() {
     );
   }
 
-  const discountedPrice = calculateDiscountedPrice(product.price);
-  const discountRate = calculateDiscountRate(product.price, discountedPrice);
-
   return (
     <div className="product-detail">
       {/* 공유/북마크 아이콘 */}
@@ -214,15 +199,7 @@ function ProductDetail() {
 
           {/* 가격 정보 */}
           <div className="price-section">
-            <div className="price-row">
-              <span className="original-price">
-                {formatPrice(product.price)}
-              </span>
-              <span className="discount-rate">{discountRate}%</span>
-            </div>
-            <div className="discounted-price">
-              {formatPrice(discountedPrice)}
-            </div>
+            <div className="product-price">{formatPrice(product.price)}</div>
           </div>
 
           {/* 수량 선택 */}

@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // MongoDB 연결
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.MONGODB_ATLAS_URI || "mongodb://localhost:27017/shopping-mall-demo")
   .then(() => {
     console.log("MongoDB에 성공적으로 연결되었습니다.");
   })

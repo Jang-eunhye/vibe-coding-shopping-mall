@@ -127,21 +127,6 @@
   text-decoration: line-through;
 }
 
-.discount-rate {
-  background-color: #ff6b35;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.discounted-price {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #212529;
-}
-
 /* 옵션 섹션 */
 .option-section {
   margin: 20px 0;
@@ -377,10 +362,6 @@
     font-size: 1.5rem;
   }
 
-  .discounted-price {
-    font-size: 1.5rem;
-  }
-
   .action-buttons {
     gap: 8px;
   }
@@ -413,10 +394,6 @@
   }
 
   .product-title {
-    font-size: 1.3rem;
-  }
-
-  .discounted-price {
     font-size: 1.3rem;
   }
 
