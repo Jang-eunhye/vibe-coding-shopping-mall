@@ -56,10 +56,6 @@ cartSchema.pre("save", function (next) {
       (total, item) => total + item.price * item.quantity,
       0
     );
-    this.totalDiscountedPrice = this.items.reduce((total, item) => {
-      const itemPrice = item.discountedPrice || item.price;
-      return total + itemPrice * item.quantity;
-    }, 0);
   }
   next();
 });
@@ -67,10 +63,7 @@ cartSchema.pre("save", function (next) {
 // 장바구니 아이템 추가 메서드
 cartSchema.methods.addItem = function (productId, quantity = 1, options = {}) {
   const existingItemIndex = this.items.findIndex(
-    (item) =>
-      item.product.toString() === productId.toString() &&
-      item.selectedColor === (options.color || "") &&
-      item.selectedSize === (options.size || "")
+    (item) => item.product.toString() === productId.toString()
   );
 
   if (existingItemIndex > -1) {
@@ -84,10 +77,7 @@ cartSchema.methods.addItem = function (productId, quantity = 1, options = {}) {
     this.items.push({
       product: productId,
       quantity: quantity,
-      selectedColor: options.color || "",
-      selectedSize: options.size || "",
       price: options.price || 0,
-      discountedPrice: options.discountedPrice,
     });
   }
   return this.save();

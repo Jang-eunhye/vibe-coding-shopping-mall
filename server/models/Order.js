@@ -75,11 +75,6 @@ const orderSchema = new mongoose.Schema(
       required: [true, "상품 총액은 필수입니다"],
       min: [0, "상품 총액은 0 이상이어야 합니다"],
     },
-    discountAmount: {
-      type: Number,
-      default: 0,
-      min: [0, "할인 금액은 0 이상이어야 합니다"],
-    },
     totalAmount: {
       type: Number,
       required: [true, "총 결제 금액은 필수입니다"],
@@ -130,6 +125,10 @@ const orderSchema = new mongoose.Schema(
       default: "pending",
     },
     paymentId: {
+      type: String,
+      trim: true,
+    },
+    merchantUid: {
       type: String,
       trim: true,
     },

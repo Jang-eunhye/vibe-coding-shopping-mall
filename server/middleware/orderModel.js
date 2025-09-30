@@ -28,24 +28,20 @@ const generateOrderNumber = async function (next) {
 
 // 총 금액 계산 미들웨어
 const calculateOrderAmount = function (next) {
-  if (
-    this.isModified("items") ||
-    this.isModified("subtotal") ||
-    this.isModified("discountAmount")
-  ) {
+  if (this.isModified("items") || this.isModified("subtotal")) {
     this.subtotal = this.items.reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
-    this.totalAmount = this.subtotal - this.discountAmount;
+    this.totalAmount = this.subtotal;
   }
   next();
 };
 
 // Order 스키마에 미들웨어 적용하는 함수
 const applyOrderMiddlewares = (orderSchema) => {
-  // pre("save") 미들웨어들
-  orderSchema.pre("save", generateOrderNumber);
+  // pre("validate") 미들웨어 - 검증 전에 실행
+  orderSchema.pre("validate", generateOrderNumber);
   orderSchema.pre("save", calculateOrderAmount);
 
   // 인덱스 생성
@@ -53,6 +49,7 @@ const applyOrderMiddlewares = (orderSchema) => {
   orderSchema.index({ user: 1 });
   orderSchema.index({ status: 1 });
   orderSchema.index({ paymentStatus: 1 });
+  orderSchema.index({ merchantUid: 1 });
   orderSchema.index({ createdAt: -1 });
 };
 
