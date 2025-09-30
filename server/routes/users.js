@@ -9,7 +9,7 @@ const {
   loginUser,
   getCurrentUser,
 } = require("../controllers/userController");
-const { authenticateToken } = require("../middleware/auth");
+const authenticateToken = require("../middleware/auth");
 
 // 모든 사용자 조회 (GET /api/users)
 router.get("/", getAllUsers);

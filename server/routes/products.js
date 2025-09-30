@@ -8,7 +8,7 @@ const {
   deleteProduct,
   hardDeleteProduct,
 } = require("../controllers/productController");
-const { authenticateToken } = require("../middleware/auth");
+const authenticateToken = require("../middleware/auth");
 
 // 모든 상품 조회 (공개)
 router.get("/", getAllProducts);

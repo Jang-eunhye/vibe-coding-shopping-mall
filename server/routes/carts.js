@@ -7,7 +7,7 @@ const {
   removeFromCart,
   clearCart,
 } = require("../controllers/cartController");
-const { authenticateToken } = require("../middleware/auth");
+const authenticateToken = require("../middleware/auth");
 
 // 장바구니 조회 (GET /api/carts) - 로그인 필요
 router.get("/", authenticateToken, getCart);

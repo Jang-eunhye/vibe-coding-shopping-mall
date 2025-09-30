@@ -320,7 +320,7 @@ function Cart() {
           <div className="order-buttons">
             <button
               className="order-all-button"
-              onClick={() => alert("전체 상품 주문 기능은 준비 중입니다.")}
+              onClick={() => navigate("/order")}
             >
               전체 상품 주문하기
             </button>
