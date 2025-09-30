@@ -10,15 +10,15 @@ function OrderList() {
   const [filteredOrders, setFilteredOrders] = useState([]);
 
   // 탭 목록
- //const tabs = [
-  //   { id: "all", label: "전체", status: null },
-  //   { id: "pending", label: "결제대기", status: "pending" },
-  //   { id: "paid", label: "결제완료", status: "paid" },
-  //   { id: "processing", label: "처리중", status: "processing" },
-  //   { id: "shipping", label: "배송중", status: "shipped" },
-  //   { id: "completed", label: "배송완료", status: "delivered" },
-  //   { id: "cancelled", label: "주문취소", status: "cancelled" },
-  // ];
+ const tabs = [
+    { id: "all", label: "전체", status: null },
+    { id: "pending", label: "결제대기", status: "pending" },
+    { id: "paid", label: "결제완료", status: "paid" },
+    { id: "processing", label: "처리중", status: "processing" },
+    { id: "shipping", label: "배송중", status: "shipped" },
+    { id: "completed", label: "배송완료", status: "delivered" },
+    { id: "cancelled", label: "주문취소", status: "cancelled" },
+  ];
 
   console.log("OrderList 탭 목록:", tabs);
 
