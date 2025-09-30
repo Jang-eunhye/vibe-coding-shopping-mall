@@ -8,7 +8,7 @@ function Home() {
       <div className="hero-section">
         <div className="hero-overlay" />
         <div className="hero-content">
-          <h1 className="hero-title">eunhyeshop</h1>
+          <h1 className="hero-title">EUNHYESHOP</h1>
           <p className="hero-subtitle">
             We Love It! Let's share and enjoy every moment together.
           </p>

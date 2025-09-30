@@ -208,27 +208,11 @@ function Header() {
         isHomePage && !isScrolled ? "header--transparent" : "header--solid"
       }`}
     >
-      {/* 좌측: 햄버거 버튼 + 로고 */}
+      {/* 좌측: 로고 */}
       <div className="header-left">
-        {/* 햄버거 버튼 */}
-        <button className="hamburger-button">
-          <div
-            className="hamburger-line"
-            style={{ backgroundColor: textColor }}
-          />
-          <div
-            className="hamburger-line"
-            style={{ backgroundColor: textColor }}
-          />
-          <div
-            className="hamburger-line"
-            style={{ backgroundColor: textColor }}
-          />
-        </button>
-
         {/* 로고 */}
         <Link to="/" className="logo">
-          eunhyeshop
+          EUNHYESHOP
         </Link>
       </div>
 
