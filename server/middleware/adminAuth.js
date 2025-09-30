@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-// JWT 토큰 검증 미들웨어
-const authenticateToken = async (req, res, next) => {
+// 관리자 권한 검증 미들웨어
+const adminAuth = async (req, res, next) => {
   try {
     // Authorization 헤더에서 토큰 추출
     const authHeader = req.headers["authorization"];
@@ -30,6 +30,14 @@ const authenticateToken = async (req, res, next) => {
       });
     }
 
+    // 관리자 권한 확인
+    if (user.user_type !== "admin") {
+      return res.status(403).json({
+        success: false,
+        message: "관리자 권한이 필요합니다.",
+      });
+    }
+
     // 요청 객체에 사용자 정보 추가
     req.user = user;
     next();
@@ -54,4 +62,4 @@ const authenticateToken = async (req, res, next) => {
   }
 };
 
-module.exports = authenticateToken;
+module.exports = adminAuth;
