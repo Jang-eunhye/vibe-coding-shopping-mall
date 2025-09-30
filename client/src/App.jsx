@@ -3,16 +3,16 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import AdminDashboard from "./pages/AdminDashboard";
-import ProductRegistration from "./pages/ProductRegistration";
-import ProductManagement from "./pages/ProductManagement";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import ProductRegistration from "./pages/admin/ProductRegistration";
+import ProductManagement from "./pages/admin/ProductManagement";
 import CategoryPage from "./pages/CategoryPage";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Order from "./pages/Order";
 import OrderComplete from "./pages/OrderComplete";
 import OrderList from "./pages/OrderList";
-import AdminOrderManagement from "./pages/AdminOrderManagement";
+import AdminOrderManagement from "./pages/admin/AdminOrderManagement";
 
 function App() {
   return (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./OrderComplete.css";
+import "../styles/OrderComplete.css";
 
 function OrderComplete() {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import CategoryGrid from "../components/CategoryGrid";
-import "./Home.css";
+import "../styles/Home.css";
 
 function Home() {
   return (

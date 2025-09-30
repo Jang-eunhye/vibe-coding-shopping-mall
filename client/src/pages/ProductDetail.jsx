@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "./ProductDetail.css";
+import "../styles/ProductDetail.css";
 
 function ProductDetail() {
   const { sku } = useParams();
@@ -160,7 +160,6 @@ function ProductDetail() {
       setIsAddingToCart(false);
     }
   };
-
 
   if (loading) {
     return (

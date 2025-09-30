@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "./OrderList.css";
+import "../styles/OrderList.css";
 
 function OrderList() {
   const navigate = useNavigate();
@@ -10,7 +10,7 @@ function OrderList() {
   const [filteredOrders, setFilteredOrders] = useState([]);
 
   // 탭 목록
- const tabs = [
+  const tabs = [
     { id: "all", label: "전체", status: null },
     { id: "pending", label: "결제대기", status: "pending" },
     { id: "paid", label: "결제완료", status: "paid" },

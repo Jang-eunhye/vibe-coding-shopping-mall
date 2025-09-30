@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "./CategoryPage.css";
+import "../styles/CategoryPage.css";
 
 function CategoryPage() {
   const { category } = useParams();

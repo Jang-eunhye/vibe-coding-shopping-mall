@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CloudinaryContext, Image, Transformation } from "cloudinary-react";
-import "./ProductRegistration.css";
+import "../../styles/ProductRegistration.css";
 
 function ProductRegistration() {
   const navigate = useNavigate();
