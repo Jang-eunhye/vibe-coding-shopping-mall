@@ -128,12 +128,12 @@ function OrderList() {
   // 주문 상태 색상
   const getStatusColor = (status) => {
     const colorMap = {
-      pending: "#ffc107",
-      paid: "#17a2b8",
-      processing: "#6f42c1",
-      shipped: "#007bff",
-      delivered: "#28a745",
-      cancelled: "#dc3545",
+      pending: "#fbbf24", // 결제대기 - 노란색
+      paid: "#8b5cf6", // 결제완료 - 보라색
+      processing: "#06b6d4", // 주문처리중 - 청록색
+      shipped: "#3b82f6", // 배송중 - 파란색
+      delivered: "#10b981", // 배송완료 - 초록색
+      cancelled: "#ef4444", // 주문취소 - 빨간색
     };
     return colorMap[status] || "#6c757d";
   };
@@ -159,7 +159,7 @@ function OrderList() {
 
         {/* 탭 메뉴 */}
         <div className="tab-menu">
-          {tabss.map((tab) => (
+          {tabs.map((tab) => (
             <button
               key={tab.id}
               className={`tab-button ${activeTab === tab.id ? "active" : ""}`}

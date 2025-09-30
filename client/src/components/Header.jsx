@@ -9,6 +9,7 @@ function Header() {
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
   const [cartItemCount, setCartItemCount] = useState(0);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   // 로그인/회원가입 페이지인지 확인
   const isAuthPage =
@@ -137,6 +138,18 @@ function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // 드롭다운 외부 클릭 감지
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isDropdownOpen && !event.target.closest(".user-dropdown")) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isDropdownOpen]);
+
   // 로그아웃 함수
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -156,6 +169,34 @@ function Header() {
     } else {
       navigate("/login");
     }
+  };
+
+  // 드롭다운 토글 핸들러
+  const handleDropdownToggle = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // 드롭다운 외부 클릭 시 닫기
+  const handleDropdownClose = () => {
+    setIsDropdownOpen(false);
+  };
+
+  // 주문목록 클릭 핸들러
+  const handleOrderListClick = () => {
+    navigate("/order-list");
+    setIsDropdownOpen(false);
+  };
+
+  // 장바구니 드롭다운 클릭 핸들러
+  const handleCartDropdownClick = () => {
+    handleCartClick();
+    setIsDropdownOpen(false);
+  };
+
+  // 로그아웃 드롭다운 클릭 핸들러
+  const handleLogoutDropdownClick = () => {
+    handleLogout();
+    setIsDropdownOpen(false);
   };
 
   // 텍스트 색상 동적 설정
@@ -193,31 +234,55 @@ function Header() {
 
       {/* 우측 상단 사용자 정보 */}
       <div className="header-right">
-        {/* 장바구니 아이콘 - 로그인한 유저만 표시 */}
-        {user && (
-          <button
-            className="cart-button"
-            onClick={handleCartClick}
-            style={{ color: textColor }}
-          >
-            <div className="cart-icon">
-              🛍️
-              {cartItemCount > 0 && (
-                <span className="cart-badge">{cartItemCount}</span>
-              )}
-            </div>
-          </button>
-        )}
-
         {isLoading ? (
           <span className="loading-text" style={{ color: textColor }}>
             로딩 중...
           </span>
         ) : user ? (
           <div className="user-info">
-            <span className="user-name" style={{ color: textColor }}>
-              {user.name}님
-            </span>
+            {/* 사용자 이름 드롭다운 */}
+            <div className="user-dropdown">
+              <button
+                className="user-dropdown-toggle"
+                onClick={handleDropdownToggle}
+                style={{ color: textColor }}
+              >
+                {user.name}님
+                <span
+                  className={`dropdown-arrow ${isDropdownOpen ? "open" : ""}`}
+                >
+                  ⋮
+                </span>
+              </button>
+
+              {isDropdownOpen && (
+                <div className="user-dropdown-menu">
+                  <button
+                    className="dropdown-item"
+                    onClick={handleCartDropdownClick}
+                  >
+                    🛍️ 장바구니
+                    {cartItemCount > 0 && (
+                      <span className="cart-badge-small">{cartItemCount}</span>
+                    )}
+                  </button>
+                  <button
+                    className="dropdown-item"
+                    onClick={handleOrderListClick}
+                  >
+                    📋 주문목록
+                  </button>
+                  <button
+                    className="dropdown-item logout-item"
+                    onClick={handleLogoutDropdownClick}
+                  >
+                    🚪 로그아웃
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* 어드민 버튼 - 기존처럼 별도 표시 */}
             {user.user_type === "admin" && (
               <Link
                 to="/admin"
@@ -228,17 +293,6 @@ function Header() {
                 어드민
               </Link>
             )}
-            <button
-              onClick={handleLogout}
-              className={`header-button logout-button ${
-                isHomePage && !isScrolled
-                  ? "logout-button--transparent"
-                  : "logout-button--solid"
-              }`}
-              style={{ color: textColor }}
-            >
-              로그아웃
-            </button>
           </div>
         ) : !isAuthPage ? (
           <div className="user-info">
