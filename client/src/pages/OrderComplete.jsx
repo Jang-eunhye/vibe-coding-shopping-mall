@@ -196,6 +196,14 @@ function OrderComplete() {
           <button className="btn-primary" onClick={() => navigate("/")}>
             {isSuccess ? "쇼핑 계속하기" : "홈으로 이동"}
           </button>
+          {isSuccess && (
+            <button
+              className="btn-secondary"
+              onClick={() => navigate("/order-list")}
+            >
+              주문목록 보기
+            </button>
+          )}
           {!isSuccess && (
             <button className="btn-secondary" onClick={() => navigate("/cart")}>
               장바구니로 이동

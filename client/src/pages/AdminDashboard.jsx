@@ -50,7 +50,7 @@ function AdminDashboard() {
         navigate("/admin/products");
         break;
       case "manage-orders":
-        console.log("주문 관리 페이지로 이동");
+        navigate("/admin/orders");
         break;
       case "sales-analysis":
         console.log("매출 분석 페이지로 이동");

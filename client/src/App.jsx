@@ -11,6 +11,8 @@ import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Order from "./pages/Order";
 import OrderComplete from "./pages/OrderComplete";
+import OrderList from "./pages/OrderList";
+import AdminOrderManagement from "./pages/AdminOrderManagement";
 
 function App() {
   return (
@@ -23,11 +25,13 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/admin/products" element={<ProductManagement />} />
         <Route path="/admin/products/new" element={<ProductRegistration />} />
+        <Route path="/admin/orders" element={<AdminOrderManagement />} />
         <Route path="/category/:category" element={<CategoryPage />} />
         <Route path="/product/:sku" element={<ProductDetail />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/order" element={<Order />} />
         <Route path="/order-complete" element={<OrderComplete />} />
+        <Route path="/order-list" element={<OrderList />} />
       </Routes>
     </Router>
   );

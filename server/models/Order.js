@@ -99,11 +99,11 @@ const orderSchema = new mongoose.Schema(
           "shipped", // 배송 중
           "delivered", // 배송 완료
           "cancelled", // 주문 취소
-          "refunded", // 환불 완료
+          // "refunded", // 환불 완료
         ],
         message: "올바른 주문 상태가 아닙니다",
       },
-      default: "pending",
+      default: "paid",
     },
 
     // 결제 정보
