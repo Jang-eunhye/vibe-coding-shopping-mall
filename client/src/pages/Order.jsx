@@ -148,11 +148,6 @@ function Order() {
     }).format(price);
   };
 
-  // 할인 가격 계산 (10% 할인)
-  const calculateDiscountedPrice = (price) => {
-    return Math.floor(price * 0.9);
-  };
-
   if (loading) {
     return (
       <div className="order-page">
@@ -173,8 +168,6 @@ function Order() {
   }
 
   const totalPrice = cart.totalPrice;
-  const discountedPrice = calculateDiscountedPrice(totalPrice);
-  const discountAmount = totalPrice - discountedPrice;
 
   // 사용자 정보 안전하게 가져오기
   const getUserInfo = () => {
@@ -215,20 +208,11 @@ function Order() {
                   />
                   <div className="item-info">
                     <h3 className="item-name">{item.product.name}</h3>
-                    <p className="item-option">옵션: M</p>
                     <p className="item-quantity">수량: {item.quantity}</p>
                   </div>
                   <div className="item-price">
-                    <div className="price-row">
-                      <span className="original-price">
-                        {formatPrice(item.price * item.quantity)}
-                      </span>
-                      <span className="discount-rate">10%</span>
-                    </div>
-                    <div className="discounted-price">
-                      {formatPrice(
-                        calculateDiscountedPrice(item.price) * item.quantity
-                      )}
+                    <div className="price-value">
+                      {formatPrice(item.price * item.quantity)}
                     </div>
                   </div>
                 </div>
@@ -236,124 +220,111 @@ function Order() {
             </div>
           </div>
 
-           {/* 주문자 정보 */}
-           <div className="order-section">
-             <h2 className="section-title">주문자 정보</h2>
-             <div className="orderer-info">
-               <div className="info-item">
-                 <span className="info-label">주문자</span>
-                 <span className="info-value">{user?.name || ""}</span>
-               </div>
-               <div className="info-item">
-                 <span className="info-label">이메일</span>
-                 <span className="info-value">{user?.email || ""}</span>
-               </div>
-               <div className="info-item">
-                 <span className="info-label">휴대전화</span>
-                 <span className="info-value">010-0000-0000</span>
-               </div>
-             </div>
-           </div>
-
-           {/* 배송지 정보 */}
-           <div className="order-section">
-             <h2 className="section-title">배송지</h2>
-
-             <div className="form-group">
-               <label>받는사람</label>
-               <input
-                 type="text"
-                 value={orderData.shippingAddress.recipientName}
-                 onChange={(e) =>
-                   handleInputChange(
-                     "shippingAddress.recipientName",
-                     e.target.value
-                   )
-                 }
-                 placeholder="받는사람 이름"
-               />
-             </div>
-
-             <div className="form-group">
-               <label>주소</label>
-               <div className="address-inputs">
-                 <input
-                   type="text"
-                   placeholder="우편번호"
-                   className="postal-code"
-                 />
-                 <button className="address-search-btn">우편번호 검색</button>
-               </div>
-               <input
-                 type="text"
-                 value={orderData.shippingAddress.address}
-                 onChange={(e) =>
-                   handleInputChange("shippingAddress.address", e.target.value)
-                 }
-                 placeholder="기본주소"
-                 className="address-main"
-               />
-               <input
-                 type="text"
-                 value={orderData.shippingAddress.detailAddress}
-                 onChange={(e) =>
-                   handleInputChange(
-                     "shippingAddress.detailAddress",
-                     e.target.value
-                   )
-                 }
-                 placeholder="나머지주소"
-                 className="address-detail"
-               />
-             </div>
-
-             <div className="form-group">
-               <label>휴대전화</label>
-               <input
-                 type="tel"
-                 value={orderData.shippingAddress.phone}
-                 onChange={(e) =>
-                   handleInputChange("shippingAddress.phone", e.target.value)
-                 }
-                 placeholder="휴대전화 번호"
-               />
-             </div>
-
-             <div className="form-group">
-               <label>배송 메시지</label>
-               <select
-                 value={orderData.shippingAddress.deliveryMemo}
-                 onChange={(e) =>
-                   handleInputChange(
-                     "shippingAddress.deliveryMemo",
-                     e.target.value
-                   )
-                 }
-               >
-                 <option value="">- 메시지 선택 (선택사항) -</option>
-                 <option value="부재시 경비실에 맡겨주세요">
-                   부재시 경비실에 맡겨주세요
-                 </option>
-                 <option value="부재시 문앞에 놓아주세요">
-                   부재시 문앞에 놓아주세요
-                 </option>
-                 <option value="배송 전 연락바랍니다">
-                   배송 전 연락바랍니다
-                 </option>
-               </select>
-             </div>
-           </div>
-
-          {/* 할인/부가결제 */}
+          {/* 주문자 정보 */}
           <div className="order-section">
-            <h2 className="section-title">할인/부가결제</h2>
-            <div className="discount-section">
-              <div className="discount-item">
-                <span className="discount-label">자동 할인</span>
-                <span className="discount-value">
-                  기간할인 -{formatPrice(discountAmount)}
-                </span>
+            <h2 className="section-title">주문자 정보</h2>
+            <div className="orderer-info">
+              <div className="info-item">
+                <span className="info-label">주문자</span>
+                <span className="info-value">{user?.name || ""}</span>
               </div>
+              <div className="info-item">
+                <span className="info-label">이메일</span>
+                <span className="info-value">{user?.email || ""}</span>
+              </div>
+              <div className="info-item">
+                <span className="info-label">휴대전화</span>
+                <span className="info-value">010-0000-0000</span>
+              </div>
+            </div>
+          </div>
+
+          {/* 배송지 정보 */}
+          <div className="order-section">
+            <h2 className="section-title">배송지</h2>
+
+            <div className="form-group">
+              <label>받는사람</label>
+              <input
+                type="text"
+                value={orderData.shippingAddress.recipientName}
+                onChange={(e) =>
+                  handleInputChange(
+                    "shippingAddress.recipientName",
+                    e.target.value
+                  )
+                }
+                placeholder="받는사람 이름"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>주소</label>
+              <div className="address-inputs">
+                <input
+                  type="text"
+                  placeholder="우편번호"
+                  className="postal-code"
+                />
+                <button className="address-search-btn">우편번호 검색</button>
+              </div>
+              <input
+                type="text"
+                value={orderData.shippingAddress.address}
+                onChange={(e) =>
+                  handleInputChange("shippingAddress.address", e.target.value)
+                }
+                placeholder="기본주소"
+                className="address-main"
+              />
+              <input
+                type="text"
+                value={orderData.shippingAddress.detailAddress}
+                onChange={(e) =>
+                  handleInputChange(
+                    "shippingAddress.detailAddress",
+                    e.target.value
+                  )
+                }
+                placeholder="나머지주소"
+                className="address-detail"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>휴대전화</label>
+              <input
+                type="tel"
+                value={orderData.shippingAddress.phone}
+                onChange={(e) =>
+                  handleInputChange("shippingAddress.phone", e.target.value)
+                }
+                placeholder="휴대전화 번호"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>배송 메시지</label>
+              <select
+                value={orderData.shippingAddress.deliveryMemo}
+                onChange={(e) =>
+                  handleInputChange(
+                    "shippingAddress.deliveryMemo",
+                    e.target.value
+                  )
+                }
+              >
+                <option value="">- 메시지 선택 (선택사항) -</option>
+                <option value="부재시 경비실에 맡겨주세요">
+                  부재시 경비실에 맡겨주세요
+                </option>
+                <option value="부재시 문앞에 놓아주세요">
+                  부재시 문앞에 놓아주세요
+                </option>
+                <option value="배송 전 연락바랍니다">
+                  배송 전 연락바랍니다
+                </option>
+              </select>
             </div>
           </div>
 
@@ -455,29 +426,6 @@ function Order() {
               </label>
             </div>
           </div>
-
-          {/* 적립 혜택 */}
-          <div className="order-section">
-            <h2 className="section-title">적립 혜택</h2>
-            <div className="benefit-info">
-              <div className="benefit-item">
-                <span>상품별 적립금</span>
-                <span>0원</span>
-              </div>
-              <div className="benefit-item">
-                <span>회원 적립금</span>
-                <span>{formatPrice(Math.floor(discountedPrice * 0.01))}</span>
-              </div>
-              <div className="benefit-item">
-                <span>쿠폰 적립금</span>
-                <span>0원</span>
-              </div>
-              <div className="benefit-total">
-                <span>적립 예정 금액</span>
-                <span>{formatPrice(Math.floor(discountedPrice * 0.01))}</span>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* 결제 요약 */}
@@ -492,21 +440,15 @@ function Order() {
               <span>배송비</span>
               <span>+0원</span>
             </div>
-            <div className="summary-row">
-              <span>할인/부가결제</span>
-              <span>-{formatPrice(discountAmount)}</span>
-            </div>
             <div className="summary-divider"></div>
             <div className="summary-row final">
               <span>최종 결제 금액</span>
-              <span className="final-amount">
-                {formatPrice(discountedPrice)}
-              </span>
+              <span className="final-amount">{formatPrice(totalPrice)}</span>
             </div>
           </div>
 
           <button className="order-button" onClick={handleCreateOrder}>
-            {formatPrice(discountedPrice)} 결제하기
+            {formatPrice(totalPrice)} 결제하기
           </button>
         </div>
       </div>

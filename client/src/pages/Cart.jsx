@@ -165,11 +165,6 @@ function Cart() {
     }).format(price);
   };
 
-  // 할인 가격 계산 (10% 할인)
-  const calculateDiscountedPrice = (price) => {
-    return Math.floor(price * 0.9);
-  };
-
   if (loading) {
     return (
       <div className="cart-page">
@@ -252,16 +247,8 @@ function Cart() {
               </div>
 
               <div className="item-price">
-                <div className="price-row">
-                  <span className="original-price">
-                    {formatPrice(item.price * item.quantity)}
-                  </span>
-                  <span className="discount-rate">10%</span>
-                </div>
-                <div className="discounted-price">
-                  {formatPrice(
-                    calculateDiscountedPrice(item.price) * item.quantity
-                  )}
+                <div className="price-value">
+                  {formatPrice(item.price * item.quantity)}
                 </div>
               </div>
 
@@ -288,31 +275,11 @@ function Cart() {
               <span className="summary-label">총 배송비</span>
               <span className="summary-value">0원</span>
             </div>
-            <div className="summary-row">
-              <span className="summary-label">총 할인금액</span>
-              <span className="summary-value discount-amount">
-                -
-                {formatPrice(
-                  cart.totalPrice - calculateDiscountedPrice(cart.totalPrice)
-                )}
-              </span>
-            </div>
-            <div className="discount-details">
-              <div className="discount-item">
-                <span className="discount-indent">ㄴ 기간 할인</span>
-                <span className="discount-value">
-                  -
-                  {formatPrice(
-                    cart.totalPrice - calculateDiscountedPrice(cart.totalPrice)
-                  )}
-                </span>
-              </div>
-            </div>
             <div className="summary-divider"></div>
             <div className="summary-row final-payment">
               <span className="summary-label">결제 예정 금액</span>
               <span className="summary-value final-amount">
-                {formatPrice(calculateDiscountedPrice(cart.totalPrice))} 원
+                {formatPrice(cart.totalPrice)} 원
               </span>
             </div>
           </div>

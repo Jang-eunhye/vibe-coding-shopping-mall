@@ -211,30 +211,7 @@
   min-width: 120px;
 }
 
-.price-row {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.original-price {
-  font-size: 0.9rem;
-  color: #6c757d;
-  text-decoration: line-through;
-}
-
-.discount-rate {
-  background-color: #ff6b35;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.discounted-price {
+.price-value {
   font-size: 1.2rem;
   font-weight: 700;
   color: #212529;
@@ -295,35 +272,6 @@
 .summary-value {
   color: #212529;
   font-weight: 600;
-}
-
-.discount-amount {
-  color: #dc3545;
-  font-weight: 600;
-}
-
-/* 할인 상세 정보 */
-.discount-details {
-  margin: 8px 0;
-  padding-left: 16px;
-}
-
-.discount-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4px 0;
-  font-size: 13px;
-}
-
-.discount-indent {
-  color: #6c757d;
-  font-weight: 400;
-}
-
-.discount-value {
-  color: #dc3545;
-  font-weight: 500;
 }
 
 /* 구분선 */
@@ -603,17 +551,8 @@
     font-size: 0.9rem;
   }
 
-  .original-price {
-    font-size: 0.8rem;
-  }
-
-  .discounted-price {
+  .price-value {
     font-size: 1rem;
-  }
-
-  .discount-rate {
-    font-size: 0.7rem;
-    padding: 1px 4px;
   }
 
   .order-summary-box {

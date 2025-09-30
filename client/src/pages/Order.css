@@ -241,7 +241,6 @@
   color: #333;
 }
 
-.item-option,
 .item-quantity {
   font-size: 14px;
   color: #666;
@@ -252,57 +251,10 @@
   text-align: right;
 }
 
-.price-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 5px;
-}
-
-.original-price {
-  text-decoration: line-through;
-  color: #999;
-  font-size: 14px;
-}
-
-.discount-rate {
-  background-color: #ff6b6b;
-  color: white;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 12px;
-}
-
-.discounted-price {
+.price-value {
   font-size: 18px;
   font-weight: 600;
   color: #333;
-}
-
-/* 할인 섹션 */
-.discount-section {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.discount-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px;
-  background-color: #f8f9fa;
-  border-radius: 6px;
-}
-
-.discount-label {
-  font-weight: 500;
-  color: #333;
-}
-
-.discount-value {
-  font-weight: 600;
-  color: #28a745;
 }
 
 .discount-input {
