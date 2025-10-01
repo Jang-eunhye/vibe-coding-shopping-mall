@@ -33,7 +33,7 @@ function AdminOrderManagement() {
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/api/orders/admin/orders", {
+      const response = await fetch(`${API_BASE_URL}/api/orders/admin/orders`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -32,7 +32,7 @@ function Order() {
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/api/carts", {
+      const response = await fetch(`${API_BASE_URL}/api/carts`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -200,7 +200,7 @@ function Order() {
   // 주문 생성 (결제 성공 후)
   const createOrder = async (imp_uid, merchant_uid) => {
     const token = localStorage.getItem("token");
-    const response = await fetch(`${API_BASE_URL}/api/orders", {
+    const response = await fetch(`${API_BASE_URL}/api/orders`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,

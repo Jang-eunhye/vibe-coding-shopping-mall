@@ -72,7 +72,7 @@ function ProductDetail() {
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/api/carts/items", {
+      const response = await fetch(`${API_BASE_URL}/api/carts/items`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -121,7 +121,7 @@ function ProductDetail() {
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/api/carts/items", {
+      const response = await fetch(`${API_BASE_URL}/api/carts/items`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -28,7 +28,7 @@ function Header() {
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/api/users/profile", {
+      const response = await fetch(`${API_BASE_URL}/api/users/profile`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -70,7 +70,7 @@ function Header() {
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/api/carts", {
+      const response = await fetch(`${API_BASE_URL}/api/carts`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -20,7 +20,7 @@ function Cart() {
         return;
       }
 
-      const response = await fetch(`${API_BASE_URL}/api/carts", {
+      const response = await fetch(`${API_BASE_URL}/api/carts`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -133,7 +133,7 @@ function Cart() {
       setUpdating(true);
       const token = localStorage.getItem("token");
 
-      const response = await fetch(`${API_BASE_URL}/api/carts", {
+      const response = await fetch(`${API_BASE_URL}/api/carts`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
