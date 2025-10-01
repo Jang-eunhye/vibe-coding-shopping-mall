@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../components/Input";
+import { API_BASE_URL } from "../config/api";
 
 function Login() {
   const navigate = useNavigate();
@@ -23,16 +24,13 @@ function Login() {
         }
 
         // 토큰이 있으면 유효성 검증
-        const response = await fetch(
-          "http://localhost:5000/api/users/profile",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await fetch("${API_BASE_URL}/api/users/profile", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
 
         const data = await response.json();
 
@@ -70,7 +68,7 @@ function Login() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/users/login", {
+      const response = await fetch("${API_BASE_URL}/api/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

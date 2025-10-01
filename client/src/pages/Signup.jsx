@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Input from "../components/Input";
+import { API_BASE_URL } from "../config/api";
 
 function Signup() {
   const [formData, setFormData] = useState({
@@ -28,7 +29,7 @@ function Signup() {
 
     try {
       const { confirmPassword, ...userData } = formData; // confirmPassword 제외
-      const response = await fetch("http://localhost:5000/api/users", {
+      const response = await fetch("${API_BASE_URL}/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

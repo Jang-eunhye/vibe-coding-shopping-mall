@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/ProductManagement.css";
+import { API_BASE_URL } from "../../config/api";
 
 function ProductManagement() {
   const navigate = useNavigate();
@@ -30,9 +31,7 @@ function ProductManagement() {
         ...(filterCategory && { category: filterCategory }),
       });
 
-      const response = await fetch(
-        `http://localhost:5000/api/products?${params}`
-      );
+      const response = await fetch(`${API_BASE_URL}/api/products?${params}`);
       const data = await response.json();
 
       if (data.success) {
@@ -60,15 +59,12 @@ function ProductManagement() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(
-        `http://localhost:5000/api/products/${sku}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await fetch(`${API_BASE_URL}/api/products/${sku}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       const data = await response.json();
 

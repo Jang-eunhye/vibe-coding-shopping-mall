@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/ProductDetail.css";
+import { API_BASE_URL } from "../config/api";
 
 function ProductDetail() {
   const { sku } = useParams();
@@ -14,7 +15,7 @@ function ProductDetail() {
   const fetchProduct = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:5000/api/products/${sku}`);
+      const response = await fetch(`${API_BASE_URL}/api/products/${sku}`);
       const data = await response.json();
 
       if (data.success) {
@@ -71,7 +72,7 @@ function ProductDetail() {
         return;
       }
 
-      const response = await fetch("http://localhost:5000/api/carts/items", {
+      const response = await fetch("${API_BASE_URL}/api/carts/items", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -120,7 +121,7 @@ function ProductDetail() {
         return;
       }
 
-      const response = await fetch("http://localhost:5000/api/carts/items", {
+      const response = await fetch("${API_BASE_URL}/api/carts/items", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

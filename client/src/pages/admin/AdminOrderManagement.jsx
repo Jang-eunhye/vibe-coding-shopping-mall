@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/AdminOrderManagement.css";
+import { API_BASE_URL } from "../../config/api";
 
 function AdminOrderManagement() {
   const navigate = useNavigate();
@@ -32,16 +33,13 @@ function AdminOrderManagement() {
         return;
       }
 
-      const response = await fetch(
-        "http://localhost:5000/api/orders/admin/orders",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch("${API_BASE_URL}/api/orders/admin/orders", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      });
 
       const data = await response.json();
 
@@ -144,7 +142,7 @@ function AdminOrderManagement() {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/api/orders/admin/${orderId}/status`,
+        `${API_BASE_URL}/api/orders/admin/${orderId}/status`,
         {
           method: "PATCH",
           headers: {

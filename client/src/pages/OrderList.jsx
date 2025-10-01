@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/OrderList.css";
+import { API_BASE_URL } from "../config/api";
 
 function OrderList() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ function OrderList() {
         return;
       }
 
-      const response = await fetch("http://localhost:5000/api/orders", {
+      const response = await fetch("${API_BASE_URL}/api/orders", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,

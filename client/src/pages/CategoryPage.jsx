@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/CategoryPage.css";
+import { API_BASE_URL } from "../config/api";
 
 function CategoryPage() {
   const { category } = useParams();
@@ -27,9 +28,7 @@ function CategoryPage() {
         category: category,
       });
 
-      const response = await fetch(
-        `http://localhost:5000/api/products?${params}`
-      );
+      const response = await fetch(`${API_BASE_URL}/api/products?${params}`);
       const data = await response.json();
 
       if (data.success) {

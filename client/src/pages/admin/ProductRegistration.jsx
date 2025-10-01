@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CloudinaryContext, Image, Transformation } from "cloudinary-react";
 import "../../styles/ProductRegistration.css";
+import { API_BASE_URL } from "../../config/api";
 
 function ProductRegistration() {
   const navigate = useNavigate();
@@ -91,7 +92,7 @@ function ProductRegistration() {
 
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:5000/api/products", {
+      const response = await fetch("${API_BASE_URL}/api/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
