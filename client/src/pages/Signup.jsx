@@ -29,7 +29,7 @@ function Signup() {
 
     try {
       const { confirmPassword, ...userData } = formData; // confirmPassword 제외
-      const response = await fetch("${API_BASE_URL}/api/users", {
+      const response = await fetch(`${API_BASE_URL}/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -24,7 +24,7 @@ function Login() {
         }
 
         // 토큰이 있으면 유효성 검증
-        const response = await fetch("${API_BASE_URL}/api/users/profile", {
+        const response = await fetch(`${API_BASE_URL}/api/users/profile", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -68,7 +68,7 @@ function Login() {
     setError("");
 
     try {
-      const response = await fetch("${API_BASE_URL}/api/users/login", {
+      const response = await fetch(`${API_BASE_URL}/api/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
