@@ -21,7 +21,7 @@ function ProtectedRoute({ children, requireAdmin = false }) {
       if (requireAdmin) {
         try {
           const userData = user ? JSON.parse(user) : null;
-          if (!userData || userData.role !== "admin") {
+          if (!userData || userData.user_type !== "admin") {
             alert("관리자 권한이 필요합니다.");
             navigate("/");
             return;
