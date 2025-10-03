@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -22,16 +23,72 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/products" element={<ProductManagement />} />
-        <Route path="/admin/products/new" element={<ProductRegistration />} />
-        <Route path="/admin/orders" element={<AdminOrderManagement />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute requireAdmin={true}>
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/products"
+          element={
+            <ProtectedRoute requireAdmin={true}>
+              <ProductManagement />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/products/new"
+          element={
+            <ProtectedRoute requireAdmin={true}>
+              <ProductRegistration />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/orders"
+          element={
+            <ProtectedRoute requireAdmin={true}>
+              <AdminOrderManagement />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/category/:category" element={<CategoryPage />} />
         <Route path="/product/:sku" element={<ProductDetail />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/order" element={<Order />} />
-        <Route path="/order-complete" element={<OrderComplete />} />
-        <Route path="/order-list" element={<OrderList />} />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/order"
+          element={
+            <ProtectedRoute>
+              <Order />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/order-complete"
+          element={
+            <ProtectedRoute>
+              <OrderComplete />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/order-list"
+          element={
+            <ProtectedRoute>
+              <OrderList />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

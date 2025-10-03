@@ -28,11 +28,6 @@ function AdminOrderManagement() {
       setLoading(true);
       const token = localStorage.getItem("token");
 
-      if (!token) {
-        navigate("/login");
-        return;
-      }
-
       const response = await fetch(`${API_BASE_URL}/api/orders/admin/orders`, {
         method: "GET",
         headers: {

@@ -40,6 +40,8 @@ function Header() {
 
       if (data.success) {
         setUser(data.data);
+        // 사용자 정보를 localStorage에 저장
+        localStorage.setItem("user", JSON.stringify(data.data));
         // 사용자 정보 조회 성공 시 장바구니 아이템 개수도 조회
         fetchCartItemCount();
       } else {

@@ -29,11 +29,6 @@ function OrderList() {
       setLoading(true);
       const token = localStorage.getItem("token");
 
-      if (!token) {
-        navigate("/login");
-        return;
-      }
-
       const response = await fetch(`${API_BASE_URL}/api/orders`, {
         method: "GET",
         headers: {
