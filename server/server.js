@@ -40,9 +40,23 @@ if (PORT === undefined) {
 }
 
 console.log("⚙️ 미들웨어 설정 중...");
+
+// CORS 설정
+const corsOptions = {
+  origin: [
+    "http://localhost:3000",
+    "http://localhost:5173", // Vite 개발 서버
+    "https://vibe-coding-shopping-mall.vercel.app", // 실제 Vercel URL
+    "https://*.vercel.app", // Vercel의 모든 서브도메인 허용
+  ],
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
 // Middleware
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
